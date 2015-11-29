@@ -92,5 +92,87 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
               }
         });
     });
+
+//day lengths compared
+    var barcelona_day_length = [];
+    var barcelona_point_start = null;
+    var lagos_day_length = [];
+    var lagos_point_start = null;
+    $.each(data.sun.Barcelona, function(key, value) {
+        barcelona_day_length.push(Math.round(value.day_length/60));
+        if (barcelona_point_start == null) { barcelona_point_start = new Date(key) }
+    });
+    $.each(data.sun.Lagos, function(key, value) {
+        lagos_day_length.push(Math.round(value.day_length/60));
+        if (lagos_point_start == null) { lagos_point_start = new Date(key) }
+    });
+
+    $(function () {
+        $('#container_day_length').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Day Length Comparson'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: [{
+                type: 'datetime',
+                title: {
+                    text: 'Date Time UTC'
+                }
+            }],
+            yAxis: { // Primary yAxis
+                labels: {
+                    format: '{value}'
+                },
+                title: {
+                    text: 'Day length in minutes'
+                }
+            },
+            tooltip: {
+                shared: true
+            },
+            series: [{
+                name: 'ausias marc',
+                type: 'spline',
+                pointStart: barcelona_point_start.getTime(), 
+                pointInterval:  1000 * 60 * 60 * 24,
+                data: barcelona_day_length,
+                tooltip: {
+                    valueSuffix: ' mins'
+                }
     
+            }, {
+                name: 'colinas verdes',
+                type: 'spline',
+                //lineWidth: 1,
+                pointStart: lagos_point_start.getTime(),
+                pointInterval:  1000 * 60 * 60 * 24,
+                data: lagos_day_length,
+                tooltip: {
+                    valueSuffix: ' mins'
+                }
+            }],
+              plotOptions: {
+                column: {
+                  borderWidth: 0
+                },
+                line: {
+                  marker: { 
+                    enabled: false 
+                  },
+                  lineWidth: 2
+                },
+                spline: {
+                  marker: { 
+                    enabled: false 
+                  },
+                  lineWidth: 2
+                }
+              }
+        });
+    });
 });

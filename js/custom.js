@@ -32,12 +32,12 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                 title: {
                     text: 'Date Time UTC'
                 },
-                plotLines: data.chart.plotlines,
-                plotBands: [{ // mark daylight times
-                    color: '#FCFFC5',
-                    from: Date.UTC(2010, 0, 2),
-                    to: Date.UTC(2010, 0, 4)
-                }]
+                plotLines: data.chart.plotlines  //plot solar noon times
+                //plotBands: [{ // mark daylight times
+                //    color: '#FCFFC5',
+                //    from: Date.UTC(2015, 10, 28, 8, 0, 0),
+                //    to: Date.UTC(2015, 10, 28, 17, 33, 0)
+                //}]
             }],
             yAxis: { // Primary yAxis
                 labels: {

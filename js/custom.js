@@ -121,7 +121,7 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
             xAxis: [{
                 type: 'datetime',
                 title: {
-                    text: 'Date Time UTC'
+                    text: 'Date'
                 }
             }],
             yAxis: { // Primary yAxis

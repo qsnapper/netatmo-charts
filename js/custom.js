@@ -111,15 +111,20 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
     var barcelona_point_start = null;
     var lagos_day_length = [];
     var lagos_point_start = null;
+    var day_length_diff = [];
     $.each(data.sun.Barcelona, function(key, value) {
-        barcelona_day_length.push(Math.round(value.day_length/60));
+        barcelona_day_length.push(Math.round(value.day_length/60*10)/10);
         if (barcelona_point_start == null) { barcelona_point_start = new Date(key) }
     });
     $.each(data.sun.Lagos, function(key, value) {
-        lagos_day_length.push(Math.round(value.day_length/60));
+        lagos_day_length.push(Math.round(value.day_length/60*10)/10);
         if (lagos_point_start == null) { lagos_point_start = new Date(key) }
     });
-
+    $.each(barcelona_day_length, function(key, value) {
+        day_length_diff.push(Math.round((barcelona_day_length[key] - lagos_day_length[key])*10)/10)
+    });
+    
+console.log(day_length_diff)
     $(function () {
         $('#container_day_length').highcharts({
             chart: {
@@ -137,23 +142,45 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                     text: 'Date'
                 }
             }],
-            yAxis: { // Primary yAxis
+            yAxis: [{ // Primary yAxis
                 labels: {
                     format: '{value}'
                 },
                 title: {
                     text: 'Day length in minutes'
                 }
-            },
+            },{ // Secondary yAxis
+                labels: {
+                    format: '{value}'
+                },
+                title: {
+                    text: 'diff in minutes'
+                },
+                opposite: true
+            }],
             tooltip: {
                 shared: true
             },
             series: [{
+                name: 'time diff',
+                type: 'column',
+                yAxis: 1,
+                //lineWidth: 1,
+                pointStart: barcelona_point_start.getTime(),
+                pointInterval:  1000 * 60 * 60 * 24,
+                data: day_length_diff,
+                color: '#05355C',
+                visible: false,
+                tooltip: {
+                    valueSuffix: ' mins'
+                }
+            }, {
                 name: 'ausias marc',
                 type: 'spline',
                 pointStart: barcelona_point_start.getTime(), 
                 pointInterval:  1000 * 60 * 60 * 24,
                 data: barcelona_day_length,
+                color: Highcharts.getOptions().colors[0],
                 tooltip: {
                     valueSuffix: ' mins'
                 }
@@ -165,6 +192,7 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                 pointStart: lagos_point_start.getTime(),
                 pointInterval:  1000 * 60 * 60 * 24,
                 data: lagos_day_length,
+                color: Highcharts.getOptions().colors[1],
                 tooltip: {
                     valueSuffix: ' mins'
                 }

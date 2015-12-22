@@ -25,7 +25,7 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                 text: 'Temperature Comparson'
             },
             subtitle: {
-                text: 'last week running'
+                text: 'last 21 days'
             },
             xAxis: [{
                 type: 'datetime',
@@ -56,6 +56,18 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                 pointStart: data.outdoor[0].beg_time * 1000, 
                 pointInterval:  1000 * data.outdoor[0].step_time,
                 data: data.outdoor[0].value.map(Number),
+                color: Highcharts.getOptions().colors[0],
+                tooltip: {
+                    valueSuffix: ' ºC'
+                }
+    
+            }, {  // hack to deal with a new array getting generated if you switch off/unplug
+                name: 'ausias marc',
+                type: 'spline',
+                pointStart: data.outdoor[1].beg_time * 1000, 
+                pointInterval:  1000 * data.outdoor[1].step_time,
+                data: data.outdoor[1].value.map(Number),
+                color: Highcharts.getOptions().colors[0],
                 tooltip: {
                     valueSuffix: ' ºC'
                 }
@@ -64,9 +76,10 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                 name: 'colinas verdes',
                 type: 'spline',
                 //lineWidth: 1,
-                pointStart: data.outdoor[1].beg_time * 1000,
-                pointInterval:  1000 * data.outdoor[1].step_time,
-                data: data.outdoor[1].value.map(Number),
+                pointStart: data.outdoor[2].beg_time * 1000,
+                pointInterval:  1000 * data.outdoor[2].step_time,
+                data: data.outdoor[2].value.map(Number),
+                color: Highcharts.getOptions().colors[1],
                 tooltip: {
                     valueSuffix: ' ºC'
                 }

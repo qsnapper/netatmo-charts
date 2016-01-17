@@ -61,24 +61,13 @@ myFirebaseRef.child("weather").on("value", function(snapshot) {
                     valueSuffix: ' ºC'
                 }
     
-            }, {  // hack to deal with a new array getting generated if you switch off/unplug
-                name: 'ausias marc',
-                type: 'spline',
-                pointStart: data.outdoor[1].beg_time * 1000, 
-                pointInterval:  1000 * data.outdoor[1].step_time,
-                data: data.outdoor[1].value.map(Number),
-                color: Highcharts.getOptions().colors[0],
-                tooltip: {
-                    valueSuffix: ' ºC'
-                }
-    
             }, {
                 name: 'colinas verdes',
                 type: 'spline',
                 //lineWidth: 1,
-                pointStart: data.outdoor[2].beg_time * 1000,
-                pointInterval:  1000 * data.outdoor[2].step_time,
-                data: data.outdoor[2].value.map(Number),
+                pointStart: data.outdoor[1].beg_time * 1000,
+                pointInterval:  1000 * data.outdoor[1].step_time,
+                data: data.outdoor[1].value.map(Number),
                 color: Highcharts.getOptions().colors[1],
                 tooltip: {
                     valueSuffix: ' ºC'

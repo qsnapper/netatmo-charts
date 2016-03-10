@@ -204,5 +204,74 @@ console.log(day_length_diff)
                 }
               }
         });
+        
+        //daily tempreatures YoY container_day_temperatures_yoy
+        $(function () {
+            $('#container_day_temperatures_yoy').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Daily Average Temperature in Barcelona'
+                },
+                subtitle: {
+                    text: '7 day moving average'
+                },
+                xAxis: {
+                    categories: data.yoy.barcelona.day_month
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                plotOptions: {
+
+                },
+                series: [{
+                    name: '2016 High',
+                    color: '#801515',
+                    lineWidth: 1,
+                    visible: false,
+                    data: data.yoy.barcelona.day_high_2016.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2016 Low',
+                    color: '#4A6B8A',
+                    lineWidth: 1,
+                    visible: false,
+                    data: data.yoy.barcelona.day_low_2016.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2015 High',
+                    color: '#D46A6A',
+                    lineWidth: 1,
+                    visible: false,
+                    data: data.yoy.barcelona.day_high_2015.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2015 Low',
+                    color: '#728DA5',
+                    lineWidth: 1,
+                    visible: false,
+                    data: data.yoy.barcelona.day_low_2015.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2016 High 7MA',
+                    color: '#801515',
+                    data: data.yoy.barcelona.day_high_7ma_2016.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2016 Low 7MA',
+                    color: '#4A6B8A',
+                    data: data.yoy.barcelona.day_low_7ma_2016.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2015 High 7MA',
+                    color: '#D46A6A',
+                    lineWidth: 1,
+                    data: data.yoy.barcelona.day_high_7ma_2015.map(function(val, i) { return val === 0 ? null : val;})
+                }, {
+                    name: '2015 Low 7MA',
+                    color: '#728DA5',
+                    lineWidth: 1,
+                    data: data.yoy.barcelona.day_low_7ma_2015.map(function(val, i) { return val === 0 ? null : val;})
+                }]
+            });
+        });
     });
 });

@@ -225,6 +225,9 @@ console.log(day_length_diff)
                         text: 'Temperature (°C)'
                     }
                 },
+                tooltip: {
+                   shared: true
+                },
                 plotOptions: {
 
                 },

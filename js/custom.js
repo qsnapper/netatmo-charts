@@ -1,3 +1,6 @@
+//redirecting to new location
+window.location.replace("https://netatmo.firebaseapp.com/");
+
 //Easy way to get an average of an array
 Array.prototype.average = function () {
 var sum = 0, j = 0; 
